@@ -8,7 +8,7 @@ const searchNumber = (min, max) => {
     alert ('Не допустимый порядок ввода');
   }
 
-  return Math.floor(Math.random() * (+(max - min + 1)) + min);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 
 };
 

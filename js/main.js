@@ -13,8 +13,9 @@ const searchNumber = (min, max) => {
 };
 
 
+
 const lengthCheck = (comment, maxLength) => {
-  const x = comment > maxLength ? alert('Превышенно максимальное количество символов'):alert('Комментарий опубликован')
+  const x = comment.length > maxLength ? alert('Превышенно максимальное количество символов') : alert('Комментарий опубликован')
 };
 
-lengthCheck(22, 55);
+lengthCheck('ggggg', 5);

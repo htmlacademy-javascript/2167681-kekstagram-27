@@ -1,21 +1,26 @@
 const searchNumber = (min, max) => {
+  let result;
   if ( max < 0 || min < 0 ) {
-    // eslint-disable-next-line no-alert
-    min += 'ggg';
-    alert ('Только натуральные числа!');
-  } else if (min >= max || max <= min) {
-    min += 'ggg';
-    alert ('Не допустимый порядок ввода');
+    result = 'NaN';
+  } else if (min > max || max < min) {
+    const swap = min;
+    min = max;
+    max = swap;
+    result = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  } else {
+    result = Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return result;
 
 };
-
+searchNumber(111, 1111);
 
 
 const lengthCheck = (comment, maxLength) => {
-  const x = comment.length > maxLength ? alert('Превышенно максимальное количество символов') : alert('Комментарий опубликован')
+  const x = comment.length > maxLength ? ('Превышенно максимальное количество символов') : ('Комментарий опубликован');
+  return x;
 };
 
 lengthCheck('ggggg', 5);

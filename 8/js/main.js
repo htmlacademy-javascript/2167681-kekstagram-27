@@ -9,15 +9,15 @@ const searchNumber = (min, max) => {
     result = Math.floor(Math.random() * (max - min + 1)) + min;
 
   } else {
-    result = Math.floor(Math.random() * (max - min + 1)) + min;
+    result = Math.floor(Math.random() * (max - min + 1)	) + min;
   }
 
   return result;
 
 };
-searchNumber(111, 1111);
-
-
+searchNumber(111, 1111); /* Если ввести проверку searchNumber(111, fffff)
+                         в консоле появляется ошибка Uncaught Reference Error: fffff is not defined изменить на NaN
+								 так и не получилось. Если это критично, то думаю стоит провести консультацию.*/
 const lengthCheck = (comment, maxLength) => {
   const x = comment.length > maxLength ? ('Превышенно максимальное количество символов') : ('Комментарий опубликован');
   return x;

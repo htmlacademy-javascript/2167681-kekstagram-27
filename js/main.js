@@ -15,7 +15,8 @@ const searchNumber = (min, max) => {
   return result;
 
 };
-searchNumber(111, 1111);
+searchNumber(111, 1111);                     // если вводить проверку например - searchNumber(111, fffff) в консоли выдает Uncaught Reference Error: fffff is not defined 
+                                             //так и не смог вывести NaN. Если это критично, то думаю стоит провести консультацию.
 
 
 const lengthCheck = (comment, maxLength) => {

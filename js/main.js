@@ -1,10 +1,10 @@
-const DISCRIPTION_DATA = ['Завидуйте молча!!!', 'Я так рад!',
+const DISCRIPTION = ['Завидуйте молча!!!', 'Я так рад!',
   'Незабываемые впечатления', 'Вот она - жизнь!', 'Спасибо вам!',
   'Адреналин зашкаливает!', 'Не могу поверить...','Проснулся с утра, а тут...!',
   'Жаль, но пора домой.', 'Пока не поздно', 'Меня аж трясет'
 ];
 
-const NAME_DATA = ['Магдалина', 'Майя', 'Макар', 'Максим', 'Марат', 'Маргарита', 'Марианна',
+const NAME = ['Магдалина', 'Майя', 'Макар', 'Максим', 'Марат', 'Маргарита', 'Марианна',
   'Марина', 'Мария', 'Марк', 'Марта', 'Мартин', 'Марфа', 'Матвей', 'Мелания', 'Мелисса', 'Милана',
   'Милена', 'Мирон', 'Мирослава','Лада', 'Лариса', 'Лев', 'Леон', 'Леонид', 'Леонтий', 'Леся', 'Лидия',
   'Лика', 'Лилиана', 'Лилия', 'Лина', 'Лолита', 'Казимир', 'Калерия', 'Камилла', 'Камиль', 'Капитолина',
@@ -18,7 +18,7 @@ const NAME_DATA = ['Магдалина', 'Майя', 'Макар', 'Максим
 
 ];
 
-const MESSAGE_DATA = ['Всё отлично!',
+const MESSAGE = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
@@ -26,16 +26,6 @@ const MESSAGE_DATA = ['Всё отлично!',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 
 ];
-
-const AVATAR_DATA = [
-  'avatar-1.svg',
-  'avatar-2.svg',
-  'avatar-3.svg',
-  'avatar-4.svg',
-  'avatar-5.svg',
-  'avatar-6.svg',
-];
-
 
 const getRandomNumber = (min, max) => {
   if ( max < 0 || min < 0 ){
@@ -54,21 +44,19 @@ const getRandomElement = (array) => {
   return array[randomIndex];
 };
 
-
 const randomMessagePuckCreater = () => {
   const messagePuck = [];
   for (let i = getRandomNumber(1,2); i <= 2; i++) {
-    messagePuck.push(getRandomElement(MESSAGE_DATA));
+    messagePuck.push(getRandomElement(MESSAGE));
   }
   return messagePuck;
 };
 
-
 const createComment = (i) => ({
   id: getRandomNumber(1, 40) * i ,
-  avatar: getRandomElement(AVATAR_DATA),
-  message: randomMessagePuckCreater().join(' '),
-  name: getRandomElement(NAME_DATA),
+  avatar: `avatar-${ getRandomNumber(1, 6)}.svg`,
+  message:getRandomElement(MESSAGE),
+  name: getRandomElement(NAME),
 
 });
 
@@ -80,15 +68,13 @@ const generateRandomArrayComments = () => {
   return arrayComments;
 };
 
-
 const createProfile = (i) => ({
   id: i ,
   url: `photos/${ i }.jpg`,
-  discription: getRandomElement(DISCRIPTION_DATA),
+  discription: getRandomElement(DISCRIPTION),
   likes: getRandomNumber (15, 200),
   comments: generateRandomArrayComments(),
 });
-
 
 const generateArrayProfiles = () => {
   const profiles = [];
@@ -99,11 +85,9 @@ const generateArrayProfiles = () => {
   return profiles;
 };
 
-
 const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
 lengthCheck('ggggg', 6);
-
-
-generateArrayProfiles();
+randomMessagePuckCreater();
 getRandomArrayElement();
+generateArrayProfiles();

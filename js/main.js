@@ -44,13 +44,6 @@ const getRandomElement = (array) => {
   return array[randomIndex];
 };
 
-const randomMessagePuckCreater = () => {
-  const messagePuck = [];
-  for (let i = getRandomNumber(1,2); i <= 2; i++) {
-    messagePuck.push(getRandomElement(MESSAGE));
-  }
-  return messagePuck;
-};
 
 const createComment = (i) => ({
   id: getRandomNumber(1, 40) * i ,
@@ -88,6 +81,5 @@ const generateArrayProfiles = () => {
 const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
 lengthCheck('ggggg', 6);
-randomMessagePuckCreater();
 getRandomArrayElement();
 generateArrayProfiles();

@@ -17,7 +17,7 @@ const MESSAGE = ['Всё отлично!',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 
-];
+];//
 
 const getRandomNumber = (min, max) => {
   if ( max < 0 || min < 0 ){
@@ -26,10 +26,10 @@ const getRandomNumber = (min, max) => {
   if ( min > max ) {
     [min, max] = [max, min];
   }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;//
 };
 
-const getRandomArrayElement = (elements) =>elements[getRandomNumber(0, elements.length - 1)];
+const getRandomArrayElement = (elements) =>elements[getRandomNumber(0, elements.length - 1)];//
 
 const getRandomElement = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -59,6 +59,10 @@ const createProfile = (i) => ({
   description: getRandomElement(DESCRIPTION),
   likes: getRandomNumber (15, 200),
   comments: generateRandomArrayComments(),
+  avatar: `avatar-${ getRandomNumber(1, 6)}.svg`,
+  message:getRandomElement(MESSAGE),
+  name: getRandomElement(NAME),
+
 });
 
 const generateArrayProfiles = () => {
@@ -73,5 +77,5 @@ const generateArrayProfiles = () => {
 const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
 lengthCheck('ggggg', 6);
-getRandomArrayElement();
-generateArrayProfiles();
+
+console.log(generateArrayProfiles());

@@ -59,6 +59,10 @@ const createProfile = (i) => ({
   description: getRandomElement(DESCRIPTION),
   likes: getRandomNumber (15, 200),
   comments: generateRandomArrayComments(),
+  avatar: `avatar-${ getRandomNumber(1, 6)}.svg`,
+  message:getRandomElement(MESSAGE),
+  name: getRandomElement(NAME),
+
 });
 
 const generateArrayProfiles = () => {

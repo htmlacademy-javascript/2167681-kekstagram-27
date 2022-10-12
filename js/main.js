@@ -103,4 +103,4 @@ const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
 lengthCheck('ggggg', 6);
 
-console.log(generateArrayProfiles());
+generateArrayProfiles();

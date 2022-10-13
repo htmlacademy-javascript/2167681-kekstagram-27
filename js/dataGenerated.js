@@ -1,6 +1,31 @@
 import {getRandomElement} from './util.js';
 import {getRandomNumber} from './util.js';
 
+const avatarNumber = { // для случайного аватара
+  min: 1,
+  max: 6,
+};
+
+const randomIdNumberRange = {// для случайного ID в в комментариях
+  min: 1,
+  max: 40,
+};
+
+const randomLikeRange = { //для случайного коллличтва лайков
+  min: 15,
+  max: 200
+};
+
+const amountRandomComents = {// для случайного колличества коментариев
+  min: 5,
+  max: 150,
+};
+
+const randomIPosition = { // тоже для случайного ID в комментариях
+  min: 1,
+  max: 10
+};
+
 
 const DESCRIPTION = ['Завидуйте молча!!!', 'Я так рад!',
   'Незабываемые впечатления', 'Вот она - жизнь!', 'Спасибо вам!',
@@ -25,8 +50,8 @@ const MESSAGE = ['Всё отлично!',
 
 
 const createComment = (i) => ({
-  id: getRandomNumber(1, 40) * i ,
-  avatar: `avatar-${ getRandomNumber(1, 6)}.svg`,
+  id: getRandomNumber(randomIdNumberRange.min, randomIdNumberRange.max) * i ,
+  avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
   message:getRandomElement(MESSAGE),
   name: getRandomElement(NAME),
 
@@ -34,7 +59,7 @@ const createComment = (i) => ({
 
 const generateRandomArrayComments = () => {
   const arrayComments = [];
-  for (let i = getRandomNumber(1, 10); i <= getRandomNumber(5, 150); i++) {
+  for (let i = getRandomNumber(randomIPosition.min, randomIPosition.max); i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
     arrayComments.push(createComment(i));
   }
   return arrayComments;
@@ -45,9 +70,9 @@ const createProfile = (i) => ({
   id: i ,
   url: `photos/${ i }.jpg`,
   description: getRandomElement(DESCRIPTION),
-  likes: getRandomNumber (15, 200),
+  likes: getRandomNumber (randomLikeRange.min, randomLikeRange.max),
   comments: generateRandomArrayComments(),
-  avatar: `avatar-${ getRandomNumber(1, 6)}.svg`,
+  avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
   message:getRandomElement(MESSAGE),
   name: getRandomElement(NAME),
 

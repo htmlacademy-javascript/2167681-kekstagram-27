@@ -1,14 +1,11 @@
 import {getRandomElement} from './util.js';
 import {getRandomNumber} from './util.js';
+import {randomRangeNumberIdGenerator} from './util.js';
+
 
 const avatarNumber = { // для случайного аватара
   min: 1,
   max: 6,
-};
-
-const randomIdNumberRange = {// для случайного ID в в комментариях
-  min: 1,
-  max: 40,
 };
 
 const randomLikeRange = { //для случайного коллличтва лайков
@@ -17,14 +14,28 @@ const randomLikeRange = { //для случайного коллличтва л�
 };
 
 const amountRandomComents = {// для случайного колличества коментариев
-  min: 5,
+  min: 1,
   max: 150,
 };
 
-const randomIPosition = { // тоже для случайного ID в комментариях
-  min: 1,
-  max: 10
+const profilesID = { // диапазон чисел для id профилей
+  min: 1000,
+  max: 9999,
 };
+
+const commentsID = {
+  min: 10000,
+  max: 99990,
+};
+
+const photoProfiles = { // диапазон чисел для фото в профиле - зависит от кол-ва фотографий для профилей
+  min: 1,
+  max: 25,
+};
+
+const createIdProfile = randomRangeNumberIdGenerator(profilesID.min, profilesID.max); //генерация случайных, не повторяющихся id для профилей
+const createPhotoProfile = randomRangeNumberIdGenerator(photoProfiles.min, photoProfiles.max); // генерация случайных, не повторяющихся фото
+const createCommentId = randomRangeNumberIdGenerator(commentsID.min, commentsID.max); //генерация случайных, не повторяющихся id для комментариев
 
 
 const DESCRIPTION = ['Завидуйте молча!!!', 'Я так рад!',
@@ -49,8 +60,8 @@ const MESSAGE = ['Всё отлично!',
 ];
 
 
-const createComment = (i) => ({
-  id: getRandomNumber(randomIdNumberRange.min, randomIdNumberRange.max) * i ,
+const createComment = () => ({
+  id: createCommentId() ,
   avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
   message:getRandomElement(MESSAGE),
   name: getRandomElement(NAME),
@@ -59,16 +70,16 @@ const createComment = (i) => ({
 
 const generateRandomArrayComments = () => {
   const arrayComments = [];
-  for (let i = getRandomNumber(randomIPosition.min, randomIPosition.max); i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
+  for (let i = 1; i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
     arrayComments.push(createComment(i));
   }
   return arrayComments;
 };
 
 
-const createProfile = (i) => ({
-  id: i ,
-  url: `photos/${ i }.jpg`,
+const createProfile = () => ({
+  id: createIdProfile() ,
+  url: `photos/${ createPhotoProfile() }.jpg`,
   description: getRandomElement(DESCRIPTION),
   likes: getRandomNumber (randomLikeRange.min, randomLikeRange.max),
   comments: generateRandomArrayComments(),

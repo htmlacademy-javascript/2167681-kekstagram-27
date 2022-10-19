@@ -1,4 +1,4 @@
 
-import {generateArrayProfiles} from './dataGenerated.js';
+import {generateArrayProfiles} from './util.js';
 
-(generateArrayProfiles());
+console.log(generateArrayProfiles());

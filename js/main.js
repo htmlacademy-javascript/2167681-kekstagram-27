@@ -1,4 +1,4 @@
+import {profilesList} from './printElement.js';
 
-import {generateArrayProfiles} from './util.js';
-
-generateArrayProfiles();
+// eslint-disable-next-line no-console
+console.log(profilesList);

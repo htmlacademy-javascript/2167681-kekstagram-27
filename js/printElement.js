@@ -1,6 +1,7 @@
 import {generateArrayProfiles} from './util.js';
 
-const dataProfiles = generateArrayProfiles(); //массив профилей(25шт.)
+//массив профилей(25шт.)
+const dataProfiles = generateArrayProfiles();
 
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');
@@ -15,5 +16,9 @@ dataProfiles.forEach(({url, likes, comments}) => {
   photoBlock.querySelector('.picture__likes').textContent = likes;
   profileListFragment.append(photoBlock);
 });
-
 profilesList.appendChild(profileListFragment);
+
+
+export {
+  profilesList,
+};

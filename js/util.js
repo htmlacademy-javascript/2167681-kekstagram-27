@@ -6,6 +6,7 @@ import {DESCRIPTION} from './data.js';
 import {NAME} from './data.js';
 import {MESSAGE} from './data.js';
 
+// Генератор случайных чисел
 const getRandomNumber = (min, max) => {
   if ( max < 0 || min < 0 ){
     return NaN;
@@ -16,14 +17,16 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+//Генератор массива случайной длинны
 const getRandomElement = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 };
 
+//ограничение на длинну комментария
 const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
-
+//Шаблон формы комментария
 const createComment = (i) => ({
   id: i ,
   avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
@@ -31,6 +34,7 @@ const createComment = (i) => ({
   name: getRandomElement(NAME),
 });
 
+// Генератор случайного колличества комментариев
 const generateRandomArrayComments = () => {
   const arrayComments = [];
   for (let i = getRandomNumber(randomIPosition.min, randomIPosition.max); i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
@@ -39,6 +43,7 @@ const generateRandomArrayComments = () => {
   return arrayComments;
 };
 
+// Шаблон формы профиля
 const createProfile = (i) => ({
   id: i ,
   url: `photos/${ i }.jpg`,
@@ -51,7 +56,7 @@ const createProfile = (i) => ({
 
 });
 
-
+// Генератор массива профилей
 const generateArrayProfiles = () => {
   const profiles = [];
   for ( let i = 1; i <= 25 ; i++ ) {

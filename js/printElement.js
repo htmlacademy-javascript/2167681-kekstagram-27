@@ -22,3 +22,4 @@ profilesList.appendChild(profileListFragment);
 export {
   profilesList,
 };
+

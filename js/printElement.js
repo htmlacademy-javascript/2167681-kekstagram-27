@@ -11,13 +11,13 @@ const profileListFragment = document.createDocumentFragment();
 // функция создания блока профиля
 dataProfiles.forEach(({url, likes, comments}) => {
   const photoBlock = templateProfile.cloneNode(true);
-  photoBlock.querySelector('.picture__comments').textConten = comments;
+  photoBlock.querySelector('.picture__comments').textContent = comments.length;
   photoBlock.querySelector('.picture__img').src = url;
   photoBlock.querySelector('.picture__likes').textContent = likes;
   profileListFragment.append(photoBlock);
 });
 profilesList.appendChild(profileListFragment);
-
+console.log(profileListFragment);
 
 export {
   profilesList,

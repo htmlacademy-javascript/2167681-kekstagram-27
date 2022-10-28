@@ -1,24 +1,36 @@
 import {generateArrayProfiles} from './util.js';
+import {showBigPicture} from './bigPhoto.js';
+
 //массив профилей(25шт)
 const dataProfiles = generateArrayProfiles();
-
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');
-const profileListFragment = document.createDocumentFragment();
-
-
+console.log(dataProfiles);
 // функция создания блока профиля
-dataProfiles.forEach(({url, likes, comments}) => {
-  const photoBlock = templateProfile.cloneNode(true);
-  photoBlock.querySelector('.picture__comments').textConten = comments;
-  photoBlock.querySelector('.picture__img').src = url;
-  photoBlock.querySelector('.picture__likes').textContent = likes;
-  profileListFragment.append(photoBlock);
-});
 
-profilesList.appendChild(profileListFragment);
+const renderPhoto = (picture) => {
+  const photoBlock = templateProfile.cloneNode(true);
+  photoBlock.querySelector('.picture__comments').textContent = picture.comments.length;
+  photoBlock.querySelector('.picture__img').src = picture.url;
+  photoBlock.querySelector('.picture__likes').textContent = picture.likes;
+  photoBlock.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    showBigPicture(picture);
+  });
+  return photoBlock;
+
+};
+
+const renderPhotos = () => {
+  const pictureFragment = document.createDocumentFragment();
+  dataProfiles.forEach((photo) => {
+    pictureFragment.appendChild(renderPhoto(photo));
+  });
+  profilesList.appendChild(pictureFragment);
+
+};
 
 
 export {
-  profilesList
+  renderPhotos
 };

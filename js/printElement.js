@@ -5,9 +5,8 @@ import {showBigPicture} from './bigPhoto.js';
 const dataProfiles = generateArrayProfiles();
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');
-console.log(dataProfiles);
-// функция создания блока профиля
 
+// функция создания блока профиля
 const renderPhoto = (picture) => {
   const photoBlock = templateProfile.cloneNode(true);
   photoBlock.querySelector('.picture__comments').textContent = picture.comments.length;
@@ -20,7 +19,7 @@ const renderPhoto = (picture) => {
   return photoBlock;
 
 };
-
+//функция создания миниатюр
 const renderPhotos = () => {
   const pictureFragment = document.createDocumentFragment();
   dataProfiles.forEach((photo) => {

@@ -46,7 +46,7 @@ const lengthCheck = (value) => value.length >= 2 && value.length <= 140;
 pristine.addValidator(hashtagField, validHashtag, 'От да да да');
 
 
-//pristine.addValidator(commentField, lengthCheck, 'От да да да');
+pristine.addValidator(commentField, lengthCheck, 'От да да да');
 
 //закрытие формы редактирования изображения
 function closerEditorImage () {

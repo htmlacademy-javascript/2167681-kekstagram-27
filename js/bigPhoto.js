@@ -12,10 +12,16 @@ commentLoader.classList.add('hidden');
 //функция использования клавиши Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const bigPictureCloser = () => {
+const onEscKeyClosed = (evt) => {
+  if(isEscapeKey(evt)) {
+    bigPictureCloser();
+  }
+};
+function bigPictureCloser () {
   bigPicture.classList.add('hidden');
   scrollOff.classList.remove('modal-open');
   bigPictureClosed.removeEventListener('click', bigPictureCloser);
+  document.removeEventListener('keydown', onEscKeyClosed);
   commentList.innerHTML = '';
 };
 
@@ -45,6 +51,7 @@ const showBigPicture = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
   bigPicture.classList.remove('hidden');
   bigPictureClosed.addEventListener('click', bigPictureCloser);
+  document.addEventListener('keydown', onEscKeyClosed);
   renderComments(picture.comments);
 };
 

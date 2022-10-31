@@ -6,7 +6,9 @@ import {DESCRIPTION} from './data.js';
 import {NAME} from './data.js';
 import {MESSAGE} from './data.js';
 
+
 // Генератор случайных чисел
+
 const getRandomNumber = (min, max) => {
   if ( max < 0 || min < 0 ){
     return NaN;

@@ -32,10 +32,9 @@ const renderComments = (comments) => {
   commentList.appendChild(commentFragment);
 };
 
-
 const showBigPicture = (picture) => {
   scrollOff.classList.add('modal-open');
-  bigPicture.querySelector('.big-picture__img').innerHTML = `<img src=${picture.url} alt=${picture.description} width="600" height="600">`;
+  bigPicture.querySelector('.big-picture__img > img').src = picture.url;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
   bigPicture.querySelector('.social__caption').textContent = picture.description;
@@ -43,7 +42,6 @@ const showBigPicture = (picture) => {
   bigPictureClosed.addEventListener('click', bigPictureCloser);
   renderComments(picture.comments);
 };
-
 
 export {
   showBigPicture

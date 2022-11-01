@@ -9,12 +9,22 @@ commentList.innerHTML = '';
 commentCount.classList.add('hidden');
 commentLoader.classList.add('hidden');
 
-const bigPictureCloser = () => {
+//функция использования клавиши Escape
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const onEscKeyClosed = (evt) => {
+  if(isEscapeKey(evt)) {
+    bigPictureCloser();
+  }
+};
+
+function bigPictureCloser () {
   bigPicture.classList.add('hidden');
   scrollOff.classList.remove('modal-open');
   bigPictureClosed.removeEventListener('click', bigPictureCloser);
+  onEscKeyClosed.removeEventListener('keydown', onEscKeyClosed);
   commentList.innerHTML = '';
-};
+}
 
 const commentFormCreater = (comment) => {
   const commentSimular = commentContent.cloneNode(true);
@@ -40,6 +50,7 @@ const showBigPicture = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
   bigPicture.classList.remove('hidden');
   bigPictureClosed.addEventListener('click', bigPictureCloser);
+  onEscKeyClosed.addEventListener('keydown', onEscKeyClosed);
   renderComments(picture.comments);
 };
 

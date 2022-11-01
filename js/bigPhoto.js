@@ -5,6 +5,7 @@ const commentCount = bigPicture.querySelector('.comments-count');
 const commentLoader = bigPicture.querySelector('.comments-loader');
 const commentList = bigPicture.querySelector('.social__comments');
 const commentContent = commentList.querySelector('.social__comment');
+
 commentList.innerHTML = '';
 commentCount.classList.add('hidden');
 commentLoader.classList.add('hidden');
@@ -23,7 +24,7 @@ function bigPictureCloser () {
   bigPictureClosed.removeEventListener('click', bigPictureCloser);
   document.removeEventListener('keydown', onEscKeyClosed);
   commentList.innerHTML = '';
-};
+}
 
 const commentFormCreater = (comment) => {
   const commentSimular = commentContent.cloneNode(true);

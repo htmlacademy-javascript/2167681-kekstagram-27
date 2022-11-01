@@ -2,14 +2,14 @@ import {renderPhotos} from './printElement.js';
 import {isEscapeKey} from './bigPhoto.js';
 renderPhotos();
 
-
 const uploadFile = document.querySelector('#upload-file');
 const mainBody = document.querySelector('body');
 const editorImage = document.querySelector('.img-upload__overlay');
 const closedEditorImage = document.querySelector('#upload-cancel');
 const form = document.querySelector('.img-upload__form');
-const hashtagField = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
+const hashtagField = form.querySelector('.text__hashtags');
+const commentField = form.querySelector('.text__description');
+
 
 //требования к хэштегам
 const MAX_HASHTAG_COUNTS = 5;
@@ -30,27 +30,26 @@ const closedOnEscKeyDown = (evt) => {
     closerEditorImage();
     evt.preventDefault();
   }
-};
+}; 
+
+const chekDescriptionLength = (value) => value.length <= 10;
 
 //подключение формы  к Pristine
 const pristine = new Pristine(form, {
-  classToo: 'img-upload__field-wrapper',
+  classTo: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--invalid',
+  successClass: 'img-upload__field-wrapper-valid',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper__error',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper-error'
 });
-
-console.log(hashtagField);
-
-const lengthCheck = (value) => value.length >= 2 && value.length <= 140;
-
-pristine.addValidator(hashtagField, validHashtag, 'От да да да');
-
-
-pristine.addValidator(commentField, lengthCheck, 'От да да да');
+pristine.addValidator(hashtagField, chekDescriptionLength,);
+pristine.addValidator(hashtagField, validHashtag, 'Хэштэг должен начинаться с \'#\', кол-во символов не должно превышать 20 и включает в себя только буквы и цифры');
 
 //закрытие формы редактирования изображения
 function closerEditorImage () {
   form.reset();
+  //pristine.reset();
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
   closedEditorImage.removeEventListener('click', closerEditorImage);
@@ -67,12 +66,18 @@ const openEditorImage = () => {
 
 
 //обработчик событий
-uploadFile.addEventListener('click', (evt) => {
+uploadFile.addEventListener('change', (evt) => {
   evt.preventDefault();
   openEditorImage();
+
 });
 
+
 form.addEventListener('submit', (evt) => {
-  //evt.preventDefault();
+  evt.preventDefault();
+  const isValid = pristine.validate();
+});
+
+hashtagField.addEventListener('change', () => {
   pristine.validate();
 });

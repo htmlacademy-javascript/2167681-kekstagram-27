@@ -31,7 +31,7 @@ const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 //Шаблон формы комментария
 const createComment = (i) => ({
   id: i ,
-  avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
+  avatar: `img/avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
   message:getRandomElement(MESSAGE),
   name: getRandomElement(NAME),
 });

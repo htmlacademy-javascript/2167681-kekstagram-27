@@ -3,7 +3,6 @@ import {showBigPicture} from './bigPhoto.js';
 
 //массив профилей(25шт)
 const dataProfiles = generateArrayProfiles();
-
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -18,7 +17,6 @@ const renderPhoto = (picture) => {
     showBigPicture(picture);
   });
   return photoBlock;
-
 };
 
 const renderPhotos = () => {

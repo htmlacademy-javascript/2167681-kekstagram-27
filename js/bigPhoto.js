@@ -18,7 +18,7 @@ const bigPictureCloser = () => {
 
 const commentFormCreater = (comment) => {
   const commentSimular = commentContent.cloneNode(true);
-  commentSimular.querySelector('.social__picture').innerHTML = `<img class="social__picture" src=${comment.avatar} alt="" width="35" height="35">`;
+  commentSimular.querySelector('.social__picture').src = comment.avatar;
   commentSimular.querySelector('.social__picture').alt = comment.name;
   commentSimular.querySelector('.social__text').textContent = comment.message;
   return commentSimular;

@@ -22,7 +22,7 @@ function bigPictureCloser () {
   bigPicture.classList.add('hidden');
   scrollOff.classList.remove('modal-open');
   bigPictureClosed.removeEventListener('click', bigPictureCloser);
-  onEscKeyClosed.removeEventListener('keydown', onEscKeyClosed);
+  document.removeEventListener('keydown', onEscKeyClosed);
   commentList.innerHTML = '';
 }
 
@@ -50,7 +50,7 @@ const showBigPicture = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
   bigPicture.classList.remove('hidden');
   bigPictureClosed.addEventListener('click', bigPictureCloser);
-  onEscKeyClosed.addEventListener('keydown', onEscKeyClosed);
+  document.addEventListener('keydown', onEscKeyClosed);
   renderComments(picture.comments);
 };
 

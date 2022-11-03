@@ -28,7 +28,7 @@ function bigPictureCloser () {
 
 const commentFormCreater = (comment) => {
   const commentSimular = commentContent.cloneNode(true);
-  commentSimular.querySelector('.social__picture').innerHTML = `<img class="social__picture" src=${comment.avatar} alt="" width="35" height="35">`;
+  commentSimular.querySelector('.social__picture').src = comment.avatar;
   commentSimular.querySelector('.social__picture').alt = comment.name;
   commentSimular.querySelector('.social__text').textContent = comment.message;
   return commentSimular;
@@ -45,7 +45,6 @@ const renderComments = (comments) => {
 
 const showBigPicture = (picture) => {
   scrollOff.classList.add('modal-open');
-  //bigPicture.querySelector('.big-picture__img > img' ).innerHTML = `<img src=${picture.url} alt=${picture.description} width="600" height="600">`;
   bigPicture.querySelector('.big-picture__img > img' ).src = picture.url;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   bigPicture.querySelector('.comments-count').textContent = picture.comments.length;

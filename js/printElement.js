@@ -17,7 +17,6 @@ const renderPhoto = (picture) => {
     showBigPicture(picture);
   });
   return photoBlock;
-
 };
 //функция создания миниатюр
 const renderPhotos = () => {

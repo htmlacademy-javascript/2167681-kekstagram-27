@@ -5,10 +5,12 @@ const commentCount = bigPicture.querySelector('.comments-count');
 const commentLoader = bigPicture.querySelector('.comments-loader');
 const commentList = bigPicture.querySelector('.social__comments');
 const commentContent = commentList.querySelector('.social__comment');
-
-commentList.innerHTML = '';
-commentCount.classList.add('hidden');
-commentLoader.classList.add('hidden');
+const socialCommentCollection = document.querySelectorAll('.social__comment');
+const counterLoadComment = bigPicture.querySelector('.social__comment-count');
+//копия массива с комментариями
+let protoCommentsArr = [];
+//commentCount.classList.add('hidden');
+//commentLoader.classList.add('hidden');
 
 //функция использования клавиши Escape
 const isEscapeKey = (evt) => evt.key === 'Escape';
@@ -34,6 +36,7 @@ const commentFormCreater = (comment) => {
   return commentSimular;
 };
 
+
 const renderComments = (comments) => {
   const commentFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
@@ -42,6 +45,10 @@ const renderComments = (comments) => {
   commentList.appendChild(commentFragment);
 };
 
+const renderCommentList = () => {
+  renderComments(protoCommentsArr.splice(0, 5));
+
+};
 
 const showBigPicture = (picture) => {
   scrollOff.classList.add('modal-open');
@@ -52,7 +59,10 @@ const showBigPicture = (picture) => {
   bigPicture.classList.remove('hidden');
   bigPictureClosed.addEventListener('click', bigPictureCloser);
   document.addEventListener('keydown', onEscKeyClosed);
-  renderComments(picture.comments);
+  commentLoader.addEventListener('click', renderCommentList);
+  protoCommentsArr = picture.comments.slice();
+  commentList.innerHTML = '';
+
 };
 
 

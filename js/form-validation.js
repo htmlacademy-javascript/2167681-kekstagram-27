@@ -1,5 +1,7 @@
 import {isEscapeKey} from './bigPhoto.js';
-
+import './scalePhoto.js';
+import {resetScale} from './scalePhoto.js';
+import {resetEffects} from './photoEffects.js';
 //данные из ТЗ для формы
 const MAX_HASHTAG_COUNTS = 5;
 
@@ -84,6 +86,7 @@ pristine.addValidator(hashtagField, checkValidHashtags, 'Хэштэги разд
 function closerEditorImage () {
   form.reset();
   pristine.reset();
+  resetEffects();
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
   closedEditorImage.removeEventListener('click', closerEditorImage);
@@ -92,6 +95,7 @@ function closerEditorImage () {
 
 //открытие формы редактирования изображения
 const openEditorImage = () => {
+  resetScale();
   editorImage.classList.remove('hidden');
   mainBody.classList.add('modal-open');
   closedEditorImage.addEventListener('click', closerEditorImage);

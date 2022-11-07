@@ -5,6 +5,7 @@ const commentCount = bigPicture.querySelector('.comments-count');
 const commentLoader = bigPicture.querySelector('.comments-loader');
 const commentList = bigPicture.querySelector('.social__comments');
 const commentContent = commentList.querySelector('.social__comment');
+
 commentList.innerHTML = '';
 commentCount.classList.add('hidden');
 commentLoader.classList.add('hidden');
@@ -55,5 +56,6 @@ const showBigPicture = (picture) => {
 };
 
 export {
-  showBigPicture
+  showBigPicture,
+  isEscapeKey
 };

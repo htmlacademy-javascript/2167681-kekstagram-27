@@ -89,7 +89,6 @@ const onFormChange = (evt) => {
     return;
   }
   chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  console.log(chosenEffect);
   updateSlider();
 };
 
@@ -105,7 +104,6 @@ const onSliderUpdate = () => {
   photoPreview.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   photoPreview.classList.add(`effects__preview--${chosenEffect.name}`);
   effectLevel.value = sliderValue;
-  console.log(photoPreview.style.filter);
 };
 
 //сброс значений
@@ -114,7 +112,7 @@ const resetEffects = () => {
   updateSlider();
 };
 //создание слайдера
-noUiSlider.create(slider, {
+window.noUiSlider.create(slider, {
   range: {
     min: DEFAULT_EFFECT.min,
     max: DEFAULT_EFFECT.max,
@@ -124,11 +122,9 @@ noUiSlider.create(slider, {
   connect: 'lower'
 });
 updateSlider();
-console.log(slider);
 //обработчики событий
 form.addEventListener('change', onFormChange);
 slider.noUiSlider.on('update', onSliderUpdate);
-console.log(chosenEffect);
 
 export {
   resetEffects,

@@ -79,7 +79,7 @@ function renderCommentList () {
 //открытие модалки
 const showBigPicture = (picture) => {
   scrollOff.classList.add('modal-open');
-  bigPicture.querySelector('.big-picture__img > img' ).src = picture.url;
+  bigPicture.querySelector('.big-picture__img > img').src = picture.url;
   bigPicture.querySelector('.likes-count').textContent = picture.likes;
   commentCount.textContent = picture.comments.length;
   counterLoadComment.textContent = `0 из ${commentCount.textContent} комментариев`;
@@ -93,7 +93,6 @@ const showBigPicture = (picture) => {
   commentList.innerHTML = '';
 
 };
-
 
 export {
   showBigPicture,

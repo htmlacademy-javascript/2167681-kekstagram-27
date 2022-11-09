@@ -96,5 +96,6 @@ const showBigPicture = (picture) => {
 
 export {
   showBigPicture,
-  isEscapeKey
+  isEscapeKey,
+  renderCommentList,
 };

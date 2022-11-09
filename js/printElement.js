@@ -15,7 +15,7 @@ const renderPhoto = (picture) => {
   photoBlock.addEventListener('click', (evt) => {
     evt.preventDefault();
     showBigPicture(picture);
-	 renderCommentList();
+    renderCommentList();
   });
   return photoBlock;
 };

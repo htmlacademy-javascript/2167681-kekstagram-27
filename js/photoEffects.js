@@ -7,6 +7,7 @@ const slider = imgUploadSection.querySelector('.effect-level__slider');
 const photoPreview = form.querySelector('.img-upload__preview > img');
 // элемент куда записываюься значения наложенного эффекта
 const effectLevel = form.querySelector('.effect-level__value');
+const blockSliderEffect = form.querySelector('.img-upload__effect-level');
 
 // параметры эффектов
 const EFFECTS = [
@@ -68,7 +69,7 @@ const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 //функция измениния  параметров эффекта
 const updateSlider = () => {
-  slider.classList.remove('hidden');
+  blockSliderEffect.classList.remove('hidden');
   slider.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -79,7 +80,7 @@ const updateSlider = () => {
   });
 
   if (isDefault()) {
-    slider.classList.add('hidden');
+    blockSliderEffect.classList.add('hidden');
   }
 };
 

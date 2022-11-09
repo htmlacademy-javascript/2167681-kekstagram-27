@@ -1,5 +1,5 @@
 import {generateArrayProfiles} from './util.js';
-import {showBigPicture} from './bigPhoto.js';
+import {showBigPicture, renderCommentList} from './bigPhoto.js';
 
 //массив профилей(25шт)
 const dataProfiles = generateArrayProfiles();
@@ -15,10 +15,12 @@ const renderPhoto = (picture) => {
   photoBlock.addEventListener('click', (evt) => {
     evt.preventDefault();
     showBigPicture(picture);
+    renderCommentList();
   });
   return photoBlock;
 
 };
+
 //функция создания миниатюр
 const renderPhotos = () => {
   const pictureFragment = document.createDocumentFragment();

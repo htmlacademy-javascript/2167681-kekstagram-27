@@ -18,7 +18,6 @@ const renderPhoto = (picture) => {
     renderCommentList();
   });
   return photoBlock;
-
 };
 
 //функция создания миниатюр

@@ -91,7 +91,6 @@ const showBigPicture = (picture) => {
   commentLoader.addEventListener('click', renderCommentList);
   protoCommentsArr = picture.comments.slice();
   commentList.innerHTML = '';
-
 };
 
 export {

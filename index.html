@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="vendor/nouislider/nouislider.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кекстаграм</title>
 </head>
@@ -49,7 +50,7 @@
                     <input type="text" class="scale__control  scale__control--value" value="55%" title="Image Scale" name="scale" readonly>
                     <button type="button" class="scale__control  scale__control--bigger">Увеличить</button>
                   </fieldset>
-
+						
                   <!-- Предварительный просмотр изображения -->
                   <div class="img-upload__preview">
                     <img src="img/upload-default-image.jpg" alt="Предварительный просмотр фотографии">
@@ -122,7 +123,6 @@
                     <textarea class="text__description" name="description"  placeholder="Ваш комментарий..." ></textarea>
                   </div>
                 </fieldset>
-`
                 <!-- Кнопка для отправки данных на сервер -->
                 <button type="submit" class="img-upload__submit" id="upload-submit">Опубликовать</button>
               </div>
@@ -231,9 +231,11 @@
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
+  
  
 
   <script src="vendor/pristine/pristine.min.js"></script>
+  <script src="vendor/nouislider/nouislider.js"></script>
   <script src='js/main.js' type ='module'></script>
 
 </body>

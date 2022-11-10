@@ -19,6 +19,7 @@ const renderPhoto = (picture) => {
   });
   return photoBlock;
 };
+
 //функция создания миниатюр
 const renderPhotos = () => {
   const pictureFragment = document.createDocumentFragment();

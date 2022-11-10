@@ -40,8 +40,12 @@ const checkDublicateHashtags = (value) => {
 
 //проверка валидности хэштега (длинна и формат разделение пробелами)
 const checkOneHashtag = (tag) => regExpValidTag.test(tag);
-const checkValidHashtags = (tags) => tags.trim().split(' ').every(checkOneHashtag);
-
+const checkValidHashtags = (tags) =>{
+  if (tags === '') {
+    return true;
+  }
+  return tags.trim().split(' ').every(checkOneHashtag);
+};
 //функция макс количества хэштэгшов
 const hashtagsMaxCount = (tags) => tags.trim().split(' ').filter((tag) => tag !== '').length <= MAX_HASHTAG_COUNTS;
 
@@ -76,11 +80,11 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper-error'
 });
 
-// валидаторы
-pristine.addValidator(commentField, checkLengthDescriptionPhoto, 'Максимум 140 символов', 1,);
-pristine.addValidator(hashtagField, checkDublicateHashtags, 'Хэштэги должны отличаться', 1);
-pristine.addValidator(hashtagField, hashtagsMaxCount, 'Максимум 5 хэштегов', 1);
-pristine.addValidator(hashtagField, checkValidHashtags, 'Хэштэги разделяются одним пробелом. Хэштэг должен начинаться с \'#\', кол-во символов не должно превышать 20 и включает в себя только буквы и цифры', 1);
+// валидатор
+pristine.addValidator(commentField, checkLengthDescriptionPhoto, 'Максимум 140 символов');
+pristine.addValidator(hashtagField, checkDublicateHashtags, 'Хэштэги должны отличаться');
+pristine.addValidator(hashtagField, hashtagsMaxCount, 'Максимум 5 хэштегов');
+pristine.addValidator(hashtagField, checkValidHashtags, 'Хэштэги разделяются одним пробелом. Хэштэг должен начинаться с \'#\', кол-во символов не должно превышать 20 и включает в себя только буквы и цифры',);
 
 //закрытие формы редактирования изображения
 function closerEditorImage () {

@@ -1,8 +1,7 @@
-import {generateArrayProfiles} from './util.js';
 import {showBigPicture, renderCommentList} from './bigPhoto.js';
 
+
 //массив профилей(25шт)
-const dataProfiles = generateArrayProfiles();
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -22,9 +21,9 @@ const renderPhoto = (picture) => {
 };
 
 //функция создания миниатюр
-const renderPhotos = () => {
+const renderPhotos = (serverData) => {
   const pictureFragment = document.createDocumentFragment();
-  dataProfiles.forEach((photo) => {
+  serverData.forEach((photo) => {
     pictureFragment.appendChild(renderPhoto(photo));
   });
   profilesList.appendChild(pictureFragment);

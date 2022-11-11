@@ -2,6 +2,10 @@ import {isEscapeKey} from './bigPhoto.js';
 import './scalePhoto.js';
 import {resetScale} from './scalePhoto.js';
 import {resetEffects} from './photoEffects.js';
+import {sendServerData} from './servers-api.js';
+import {showAlert} from './util.js';
+import {popupSuccess} from './validate-popup.js';
+
 //данные из ТЗ для формы
 const MAX_HASHTAG_COUNTS = 5;
 
@@ -25,7 +29,7 @@ const hashtagField = form.querySelector('.text__hashtags');
 //поле описания фотографии
 const commentField = form.querySelector('.text__description');
 //кнопка отправки формы
-const submitForm = form.querySelector('.img-upload__submit');
+const submitButton = form.querySelector('.img-upload__submit');
 
 //проверка длинны комментария к фото
 const checkLengthDescriptionPhoto = (text) => text.length <= MAX_LENGTH_DESCRIPTION;
@@ -106,7 +110,6 @@ const openEditorImage = () => {
   document.addEventListener('keydown', closedOnEscKeyDown);
 };
 
-
 //обработчик событий
 uploadFile.addEventListener('change', (evt) => {
   evt.preventDefault();
@@ -114,13 +117,46 @@ uploadFile.addEventListener('change', (evt) => {
 
 });
 
-//
-form.addEventListener('submit', (evt)=> {
-  evt.preventDefault();
-});
 
-//блокировка отправки формы в случае неверно заполненной формы
+// блокировка кнопки отправки формы
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправляю...';
+};
+
+// разблокировка кнопки отправки формы
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Отправить';
+};
+
+/* //блокировка отправки формы в случае неверно заполненной формы
 form.addEventListener('input', () => {
   const isValid = pristine.validate();
-  submitForm.disabled = !isValid;
+  submitButton.disabled = !isValid;
 });
+ */
+
+//
+const sendToServer = (onSuccess) => {
+  form.addEventListener('submit', (evt)=> {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendServerData( () => {
+        onSuccess();
+        unblockSubmitButton();
+        popupSuccess();
+      },
+      () => {
+        showAlert('джыга дрыга');
+        unblockSubmitButton();
+      },
+      new FormData(evt.target));
+    }
+  });
+};
+
+sendToServer(closerEditorImage);

@@ -2,13 +2,8 @@ import {isEscapeKey} from './bigPhoto.js';
 import './scalePhoto.js';
 import {resetScale} from './scalePhoto.js';
 import {resetEffects} from './photoEffects.js';
-//данные из ТЗ для формы
-const MAX_HASHTAG_COUNTS = 5;
-
-//требования к хэштэгу: начинается с # доступные буквы а-я,a-z(нижнего и верхнего регистра), цифры 0-9, длинна хэштэга 1-19
-const VALID_HASHTAG_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-const regExpValidTag = new RegExp(VALID_HASHTAG_SIMBOLS);
-const MAX_LENGTH_DESCRIPTION = 140;
+import {sendServerData} from './servers-api.js';
+import {pristine} from './pristineValidate.js';
 
 //кнопка загрузки фото
 const uploadFile = document.querySelector('#upload-file');
@@ -25,25 +20,60 @@ const hashtagField = form.querySelector('.text__hashtags');
 //поле описания фотографии
 const commentField = form.querySelector('.text__description');
 //кнопка отправки формы
-const submitForm = form.querySelector('.img-upload__submit');
+const submitButton = form.querySelector('.img-upload__submit');
 
-//проверка длинны комментария к фото
-const checkLengthDescriptionPhoto = (text) => text.length <= MAX_LENGTH_DESCRIPTION;
+//шаблон сообщения об успешной загрузки фото
+const onSuccessMessage = document.querySelector('#success').content.querySelector('.success');
+const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
 
-//проверка регистров Хэштэга
-const checkDublicateHashtags = (value) => {
-  const hashtags = value.trim().toLowerCase().split(' ').filter((tag) => tag !== '');
-  const uniqueHashtags = new Set(hashtags);
-  return uniqueHashtags.size === hashtags.length;
+//шаблон сообщения об ошибки загруски фото
+const onErrorMessage = document.querySelector('#error').content.querySelector('.error');
+const buttonErrorMessage = onErrorMessage.querySelector('.error__button');
+
+/* // закрыть сообщение
+const closedIfSuccess = (evt) => {
+  if (isEscapeKey(evt) || evt.target !== onErrorMessage) {
+    document.body.removeChild(onSuccessMessage);
+  }
+}; */
+
+// ОБРАБОТЧИК ПОПАППА!!!1
+const onOutsideClick = (evt) => {
+  if (isEscapeKey(evt) || evt.target === onErrorMessage) {
+    evt.preventDefault();
+    mainBody.removeEventListener('click', onOutsideClick, );
+    mainBody.removeEventListener('keydown', onOutsideClick,);
+    document.body.removeChild(onErrorMessage);
+  }
 };
 
+/* const ontarget = (evt) => {
+  console.log(evt.target);
+};
 
-//проверка валидности хэштега (длинна и формат разделение пробелами)
-const checkOneHashtag = (tag) => regExpValidTag.test(tag);
-const checkValidHashtags = (tags) => tags.trim().split(' ').every(checkOneHashtag);
+document.addEventListener('click', ontarget);
+ */
 
-//функция макс количества хэштэгшов
-const hashtagsMaxCount = (tags) => tags.trim().split(' ').filter((tag) => tag !== '').length <= MAX_HASHTAG_COUNTS;
+/* function closedIfError () {
+  document.body.removeChild(onErrorMessage);
+  console.log('ddddd');
+} */
+
+
+/* // сообщение при успешной загрузке
+const popupSuccess = () => {
+  document.body.append(onSuccessMessage);
+  mainBody.addEventListener('click',closedIfSuccess);
+}; */
+
+
+// ПОПАППП!!!!
+const popupError = () => {
+  document.body.append(onErrorMessage);
+  mainBody.addEventListener('click', onOutsideClick,);
+  mainBody.addEventListener('keydown', onOutsideClick,);
+};
+
 
 //блокировка esc при фокусе таргета input
 hashtagField.addEventListener('keydown', (evt) => {
@@ -66,22 +96,6 @@ const closedOnEscKeyDown = (evt) => {
   }
 };
 
-//подключение формы  к Pristine
-const pristine = new Pristine(form, {
-  classTo: 'img-upload__field-wrapper',
-  errorClass: 'img-upload__field-wrapper--invalid',
-  successClass: 'img-upload__field-wrapper-valid',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextTag: 'div',
-  errorTextClass: 'img-upload__field-wrapper-error'
-});
-
-// валидаторы
-pristine.addValidator(commentField, checkLengthDescriptionPhoto, 'Максимум 140 символов', 1,);
-pristine.addValidator(hashtagField, checkDublicateHashtags, 'Хэштэги должны отличаться', 1);
-pristine.addValidator(hashtagField, hashtagsMaxCount, 'Максимум 5 хэштегов', 1);
-pristine.addValidator(hashtagField, checkValidHashtags, 'Хэштэги разделяются одним пробелом. Хэштэг должен начинаться с \'#\', кол-во символов не должно превышать 20 и включает в себя только буквы и цифры', 1);
-
 //закрытие формы редактирования изображения
 function closerEditorImage () {
   form.reset();
@@ -90,18 +104,17 @@ function closerEditorImage () {
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
   closedEditorImage.removeEventListener('click', closerEditorImage);
-  document.removeEventListener('keydown', closedOnEscKeyDown);
+  form.removeEventListener('keydown', closedOnEscKeyDown);
 }
 
-//открытие формы редактирования изображения
-const openEditorImage = () => {
+//открытие формы редактирования изображения+
+function openEditorImage () {
   resetScale();
   editorImage.classList.remove('hidden');
   mainBody.classList.add('modal-open');
   closedEditorImage.addEventListener('click', closerEditorImage);
-  document.addEventListener('keydown', closedOnEscKeyDown);
-};
-
+  form.addEventListener('keydown', closedOnEscKeyDown);
+}
 
 //обработчик событий
 uploadFile.addEventListener('change', (evt) => {
@@ -110,13 +123,39 @@ uploadFile.addEventListener('change', (evt) => {
 
 });
 
-//
-form.addEventListener('submit', (evt)=> {
-  evt.preventDefault();
-});
+// блокировка кнопки отправки формы
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохранение...';
+};
 
-//блокировка отправки формы в случае неверно заполненной формы
-form.addEventListener('input', () => {
-  const isValid = pristine.validate();
-  submitForm.disabled = !isValid;
-});
+// разблокировка кнопки отправки формы
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
+
+
+//функция отправления формы
+const sendToServer = (onSuccess) => {
+  form.addEventListener('submit', (evt)=> {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendServerData( () => {
+        onSuccess();
+        unblockSubmitButton();
+        //popupSuccess();
+      },
+      () => {
+        popupError();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target));
+    }
+  });
+};
+
+sendToServer(closerEditorImage);

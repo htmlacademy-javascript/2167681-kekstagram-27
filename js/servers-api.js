@@ -14,17 +14,17 @@ const getServerData = (onSuccess) => {
 
 // отправка данных серверу
 const sendServerData = (onSuccess, onFail, body) => {
-  fetch('https://27.javascript.pages.academy/kekstagram', {
+  fetch('https://27.jaascript.pages.academy/kekstagram', {
     method: 'POST',
     body,
   }).then((response) => {
     if(response.ok) {
       onSuccess();
     } else {
-      onFail('Не удалось отправить кек');
+      onFail('Не удалось отправить данные. Попробуйте еще раз.');
     }
   }).catch(() => {
-    onFail('Не удалось отправить шпек');
+    onFail('Не удалось отправить данные. Попробуйте еще раз.');
   });
 };
 

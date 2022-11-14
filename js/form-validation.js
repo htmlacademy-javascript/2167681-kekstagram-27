@@ -4,7 +4,6 @@ import {resetScale} from './scalePhoto.js';
 import {resetEffects} from './photoEffects.js';
 import {sendServerData} from './servers-api.js';
 import {pristine} from './pristineValidate.js';
-
 //кнопка загрузки фото
 const uploadFile = document.querySelector('#upload-file');
 // тело сайта
@@ -23,57 +22,55 @@ const commentField = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
 
 //шаблон сообщения об успешной загрузки фото
-const onSuccessMessage = document.querySelector('#success').content.querySelector('.success');
-const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 
 //шаблон сообщения об ошибки загруски фото
-const onErrorMessage = document.querySelector('#error').content.querySelector('.error');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const onErrorMessage = errorMessageTemplate.cloneNode(true);
 const buttonErrorMessage = onErrorMessage.querySelector('.error__button');
+const onSuccessMessage = successMessageTemplate.cloneNode(true);
+const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
 
-/* // закрыть сообщение
-const closedIfSuccess = (evt) => {
-  if (isEscapeKey(evt) || evt.target !== onErrorMessage) {
-    document.body.removeChild(onSuccessMessage);
+// Сообщение о статусе загрузки фото
+const messageStatusSubmit = (popappClass) => {
+  switch (popappClass) {
+    case onErrorMessage:
+      closerEditorImageTwo();
+      document.body.append(onErrorMessage);
+      onErrorMessage.addEventListener('click', onAnotherClosedError);
+      mainBody.addEventListener('keydown', onAnotherClosedError);
+      buttonErrorMessage.addEventListener('click', onAnotherClosedError);
+      break;
+    case onSuccessMessage:
+      closerEditorImage();
+      document.body.append(onSuccessMessage);
+      onSuccessMessage.addEventListener('click', onAnotherClosedSuccess);
+      mainBody.addEventListener('keydown', onAnotherClosedSuccess);
+      buttonSuccessMessage.addEventListener('click', onAnotherClosedSuccess);
+      break;
   }
-}; */
+};
 
-// ОБРАБОТЧИК ПОПАППА!!!1
-const onOutsideClick = (evt) => {
-  if (isEscapeKey(evt) || evt.target === onErrorMessage) {
-    evt.preventDefault();
-    mainBody.removeEventListener('click', onOutsideClick, );
-    mainBody.removeEventListener('keydown', onOutsideClick,);
+
+// удаление попаппа с ошибкой
+function onAnotherClosedError (evt) {
+  if (isEscapeKey(evt) || evt.target === onErrorMessage || evt.target === buttonErrorMessage ) {
+    onErrorMessage.removeEventListener('click', onAnotherClosedError);
+    mainBody.removeEventListener('keydown', onAnotherClosedError);
+    buttonErrorMessage.removeEventListener('click', onAnotherClosedError);
     document.body.removeChild(onErrorMessage);
   }
-};
-
-/* const ontarget = (evt) => {
-  console.log(evt.target);
-};
-
-document.addEventListener('click', ontarget);
- */
-
-/* function closedIfError () {
-  document.body.removeChild(onErrorMessage);
-  console.log('ddddd');
-} */
-
-
-/* // сообщение при успешной загрузке
-const popupSuccess = () => {
-  document.body.append(onSuccessMessage);
-  mainBody.addEventListener('click',closedIfSuccess);
-}; */
-
-
-// ПОПАППП!!!!
-const popupError = () => {
-  document.body.append(onErrorMessage);
-  mainBody.addEventListener('click', onOutsideClick,);
-  mainBody.addEventListener('keydown', onOutsideClick,);
-};
-
+}
+// удаление попаппа "все ок"
+function onAnotherClosedSuccess (evt) {
+  if (isEscapeKey(evt) || evt.target === onSuccessMessage || evt.target === buttonSuccessMessage ) {
+    onSuccessMessage.removeEventListener('click', onAnotherClosedSuccess);
+    mainBody.removeEventListener('keydown', onAnotherClosedSuccess);
+    buttonSuccessMessage.removeEventListener('click', onAnotherClosedSuccess);
+    document.body.removeChild(onSuccessMessage);
+  }
+}
 
 //блокировка esc при фокусе таргета input
 hashtagField.addEventListener('keydown', (evt) => {
@@ -95,6 +92,14 @@ const closedOnEscKeyDown = (evt) => {
     evt.preventDefault();
   }
 };
+
+//закрытие формы редактирования изображения
+function closerEditorImageTwo () {
+  editorImage.classList.add('hidden');
+  mainBody.classList.remove('modal-open');
+  closedEditorImage.removeEventListener('click', closerEditorImage);
+  form.removeEventListener('keydown', closedOnEscKeyDown);
+}
 
 //закрытие формы редактирования изображения
 function closerEditorImage () {
@@ -146,11 +151,11 @@ const sendToServer = (onSuccess) => {
       blockSubmitButton();
       sendServerData( () => {
         onSuccess();
+        messageStatusSubmit(onSuccessMessage);
         unblockSubmitButton();
-        //popupSuccess();
       },
       () => {
-        popupError();
+        messageStatusSubmit(onErrorMessage);
         unblockSubmitButton();
       },
       new FormData(evt.target));

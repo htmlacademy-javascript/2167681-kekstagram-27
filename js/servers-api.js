@@ -14,7 +14,7 @@ const getServerData = (onSuccess) => {
 
 // отправка данных серверу
 const sendServerData = (onSuccess, onFail, body) => {
-  fetch('https://27.jaascript.pages.academy/kekstagram', {
+  fetch('https://27.javascript.pages.academy/kekstagra', {
     method: 'POST',
     body,
   }).then((response) => {

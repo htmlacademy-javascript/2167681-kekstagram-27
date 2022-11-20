@@ -1,6 +1,5 @@
 import {showBigPicture, renderCommentList} from './bigPhoto.js';
 
-
 //массив профилей(25шт)
 const profilesList = document.querySelector('.pictures');
 const templateProfile = document.querySelector('#picture').content.querySelector('.picture');

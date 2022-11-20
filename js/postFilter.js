@@ -5,6 +5,7 @@ const postsFilters = document.querySelector('.img-filters');
 const randomPostsFilter = postsFilters.querySelector('#filter-random');
 const descussedPostsFilter = postsFilters.querySelector('#filter-discussed');
 const defaultPostsFilter = postsFilters.querySelector('#filter-default');
+const buttonFilterGroup = postsFilters.querySelectorAll('.img-filters__button')
 
 // количество постов подгружаемые "рандом фильтром"
 const RANDOM_POST_COUNT = 10;
@@ -56,7 +57,9 @@ const renderPicturesFilter = (posts) => {
 const renderFilters = (data) =>{
   postsFilters.classList.remove('img-filters--inactive');
   postsFilters.addEventListener('click', debounce((evt) => {
-    removeActiveClass();
+    if (evt.target === randomPostsFilter || evt.target === descussedPostsFilter || evt.target === defaultPostsFilter) {
+      removeActiveClass();
+    }
     switch(evt.target) {
       case randomPostsFilter :
         renderPicturesFilter(onRandomFilter(data));

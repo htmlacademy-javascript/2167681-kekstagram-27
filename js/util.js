@@ -9,7 +9,6 @@ import {MESSAGE} from './data.js';
 const ALERT_SHOW_TIME = 5000;
 
 // Генератор случайных чисел
-
 const getRandomNumber = (min, max) => {
   if ( max < 0 || min < 0 ){
     return NaN;

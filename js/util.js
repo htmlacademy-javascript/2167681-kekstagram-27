@@ -76,6 +76,7 @@ const generateArrayProfiles = () => {
   return profiles;
 };
 
+//div ошибка
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';

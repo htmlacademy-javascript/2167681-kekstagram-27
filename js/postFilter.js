@@ -18,7 +18,7 @@ const removePictures = () => {
 };
 
 // подсветка кнопки фильтра
-const removeActiveClass = () => {
+const removeActiveButton = () => {
   const activeButton = document.querySelector('.img-filters__button--active');
   activeButton.classList.remove('img-filters__button--active');
 };
@@ -57,7 +57,7 @@ const renderFilters = (data) =>{
   postsFilters.classList.remove('img-filters--inactive');
   postsFilters.addEventListener('click', debounce((evt) => {
     if (evt.target === randomPostsFilter || evt.target === descussedPostsFilter || evt.target === defaultPostsFilter) {
-      removeActiveClass();
+      removeActiveButton();
     }
     switch(evt.target) {
       case randomPostsFilter :

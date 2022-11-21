@@ -4,27 +4,18 @@ import {resetScale} from './scalePhoto.js';
 import {resetEffects} from './photoEffects.js';
 import {sendServerData} from './servers-api.js';
 import {pristine} from './pristineValidate.js';
+import {photoUploader} from './imageUploader.js';
 
-//кнопка загрузки фото
 const uploadFile = document.querySelector('#upload-file');
-// тело сайта
 const mainBody = document.querySelector('body');
-//форма редактирования изображения
 const editorImage = document.querySelector('.img-upload__overlay');
-//кнопка закрытия редактора изображения
 const closedEditorImage = document.querySelector('#upload-cancel');
-//форма
 const form = document.querySelector('.img-upload__form');
-//поле хэштегов
 const hashtagField = form.querySelector('.text__hashtags');
-//поле описания фотографии
 const commentField = form.querySelector('.text__description');
-//кнопка отправки формы
 const submitButton = form.querySelector('.img-upload__submit');
 
-//загрузка фото
-const fileUploader = document.querySelector('input[type=file]');
-const imagePreview = document.querySelector('.img-upload__preview img');
+
 //шаблон сообщения об успешной загрузки фото
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 
@@ -37,19 +28,6 @@ const buttonErrorMessage = onErrorMessage.querySelector('.error__button');
 const onSuccessMessage = successMessageTemplate.cloneNode(true);
 const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
 
-
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
-
-const photoUploader = () => {
-  const file = fileUploader.files[0];
-  const fileName = file.name.toLowerCase();
-
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-  if (matches) {
-    imagePreview.src = URL.createObjectURL(file);
-
-  }
-};
 
 // Сообщение о статусе загрузки фото
 const messageStatusSubmit = (popappClass) => {

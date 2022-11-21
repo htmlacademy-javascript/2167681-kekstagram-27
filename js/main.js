@@ -9,3 +9,4 @@ getServerData((posts) => {
   renderFilters(posts);
   renderPhotos(posts);
 });
+

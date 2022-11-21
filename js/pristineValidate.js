@@ -1,9 +1,8 @@
-// форма добавления новой фотографии
+
 const form = document.querySelector('.img-upload__form');
-//поле описания фотографии
 const commentField = form.querySelector('.text__description');
-//поле хэштегов
 const hashtagField = form.querySelector('.text__hashtags');
+
 //данные из ТЗ для формы
 const MAX_HASHTAG_COUNTS = 5;
 //требования к хэштэгу: начинается с # доступные буквы а-я,a-z(нижнего и верхнего регистра), цифры 0-9, длинна хэштэга 1-19

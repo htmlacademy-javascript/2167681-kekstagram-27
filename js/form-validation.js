@@ -4,6 +4,7 @@ import {resetScale} from './scalePhoto.js';
 import {resetEffects} from './photoEffects.js';
 import {sendServerData} from './servers-api.js';
 import {pristine} from './pristineValidate.js';
+
 //кнопка загрузки фото
 const uploadFile = document.querySelector('#upload-file');
 // тело сайта
@@ -21,16 +22,34 @@ const commentField = form.querySelector('.text__description');
 //кнопка отправки формы
 const submitButton = form.querySelector('.img-upload__submit');
 
+//загрузка фото
+const fileUploader = document.querySelector('input[type=file]');
+const imagePreview = document.querySelector('.img-upload__preview img');
 //шаблон сообщения об успешной загрузки фото
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 
 //шаблон сообщения об ошибки загруски фото
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
+
 const onErrorMessage = errorMessageTemplate.cloneNode(true);
 const buttonErrorMessage = onErrorMessage.querySelector('.error__button');
 const onSuccessMessage = successMessageTemplate.cloneNode(true);
 const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
+
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const photoUploader = () => {
+  const file = fileUploader.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imagePreview.src = URL.createObjectURL(file);
+
+  }
+};
 
 // Сообщение о статусе загрузки фото
 const messageStatusSubmit = (popappClass) => {
@@ -75,6 +94,7 @@ function onAnotherClosedSuccess (evt) {
 //блокировка esc при фокусе таргета input
 hashtagField.addEventListener('keydown', (evt) => {
   if(isEscapeKey(evt)) {
+
     evt.stopPropagation();
   }
 });
@@ -125,7 +145,7 @@ function openEditorImage () {
 uploadFile.addEventListener('change', (evt) => {
   evt.preventDefault();
   openEditorImage();
-
+  photoUploader();
 });
 
 // блокировка кнопки отправки формы
@@ -164,3 +184,7 @@ const sendToServer = (onSuccess) => {
 };
 
 sendToServer(closerEditorImage);
+
+export {
+  openEditorImage,
+};

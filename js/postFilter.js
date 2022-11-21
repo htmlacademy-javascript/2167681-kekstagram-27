@@ -5,7 +5,6 @@ const postsFilters = document.querySelector('.img-filters');
 const randomPostsFilter = postsFilters.querySelector('#filter-random');
 const descussedPostsFilter = postsFilters.querySelector('#filter-discussed');
 const defaultPostsFilter = postsFilters.querySelector('#filter-default');
-const buttonFilterGroup = postsFilters.querySelectorAll('.img-filters__button')
 
 // количество постов подгружаемые "рандом фильтром"
 const RANDOM_POST_COUNT = 10;
@@ -19,7 +18,7 @@ const removePictures = () => {
 };
 
 // подсветка кнопки фильтра
-const removeActiveClass = () => {
+const removeActiveButton = () => {
   const activeButton = document.querySelector('.img-filters__button--active');
   activeButton.classList.remove('img-filters__button--active');
 };
@@ -58,7 +57,7 @@ const renderFilters = (data) =>{
   postsFilters.classList.remove('img-filters--inactive');
   postsFilters.addEventListener('click', debounce((evt) => {
     if (evt.target === randomPostsFilter || evt.target === descussedPostsFilter || evt.target === defaultPostsFilter) {
-      removeActiveClass();
+      removeActiveButton();
     }
     switch(evt.target) {
       case randomPostsFilter :

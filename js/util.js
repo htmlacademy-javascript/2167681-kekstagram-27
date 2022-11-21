@@ -30,18 +30,10 @@ const lengthCheck = (comment, maxLength) => comment.length <= maxLength;
 
 // debounce - устраниние дребезга
 function debounce (callback, timeoutDelay = 500) {
-  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
-  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;
   return (...rest) => {
-    // Перед каждым новым вызовом удаляем предыдущий таймаут,
-    // чтобы они не накапливались
     clearTimeout(timeoutId);
-    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-
-    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
-    // пока действие совершается чаще, чем переданная задержка timeoutDelay
   };
 }
 
@@ -107,18 +99,12 @@ const showAlert = (message) => {
 
 // Функция, создающая не повторяющийся массив элементов
 const getRandomUniqueElements = (arr) => {
-  // создаю копию передавемого массива
   const newArray = arr.slice();
-  // создаю новый пустой массив, куда буду складывать новые не повторяющиеся элементы
   const elements = [];
   const newArrayLength = arr.length;
-  // Запускаю цикл,  который будет идти столько раз сколько и элементов в массиве
   for (let i = 0; i < newArrayLength; i++) {
-    // создаю переменную, которая генерирут случ значение в переданном массиве
     const randomId = getRandomNumber(0, newArray.length - 1);
-    // добавляю в новый массив рандомное значение из массива newArray
     elements.push(newArray[randomId]);
-    //  удаляю из newArray этот индекс элемента
     newArray.splice(randomId, 1);
   }
   return elements;

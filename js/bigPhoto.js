@@ -1,19 +1,13 @@
-// фото крупным планом
+
 const bigPicture = document.querySelector('.big-picture');
-// "боди" сайта
 const scrollOff = document.querySelector ('body');
-// кнопка "закрыть" фото
 const bigPictureClosed = bigPicture.querySelector('.big-picture__cancel');
-// сколько комментариев к 1му фото всего
 const commentCount = bigPicture.querySelector('.comments-count');
-// кнопка "Загрузить еще"
 const commentLoader = bigPicture.querySelector('.comments-loader');
-// список комментариев к фото
 const commentList = bigPicture.querySelector('.social__comments');
-// шаблон комментария
 const commentContent = commentList.querySelector('.social__comment');
-// счетчик загруженных комментариев
 const counterLoadComment = bigPicture.querySelector('.social__comment-count');
+
 //копия массива с комментариями
 let protoCommentsArr = [];
 

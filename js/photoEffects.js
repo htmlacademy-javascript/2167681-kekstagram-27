@@ -1,11 +1,7 @@
 const imgUploadSection = document.querySelector('.img-upload__overlay');
-//форма редактирования изображения
 const form = document.querySelector('.img-upload__form');
-// элемент к которому подключается слайдер
 const slider = imgUploadSection.querySelector('.effect-level__slider');
-//превью изображения
 const photoPreview = form.querySelector('.img-upload__preview > img');
-// элемент куда записываюься значения наложенного эффекта
 const effectLevel = form.querySelector('.effect-level__value');
 const blockSliderEffect = form.querySelector('.img-upload__effect-level');
 
@@ -123,6 +119,7 @@ window.noUiSlider.create(slider, {
   connect: 'lower'
 });
 updateSlider();
+
 //обработчики событий
 form.addEventListener('change', onFormChange);
 slider.noUiSlider.on('update', onSliderUpdate);

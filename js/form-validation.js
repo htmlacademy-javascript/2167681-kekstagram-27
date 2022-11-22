@@ -1,5 +1,5 @@
 import {isEscapeKey} from './big-photo.js';
-import './scalePhoto.js';
+import './scale-photo.js';
 import {resetScale} from './scale-photo.js';
 import {resetEffects} from './photo-effects.js';
 import {sendServerData} from './servers-api.js';

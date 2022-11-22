@@ -1,4 +1,4 @@
-import {renderPhotos} from './printElement.js';
+import {renderPhotos} from './print-element.js';
 import {getRandomUniqueElements, debounce} from './util.js';
 
 const postsFilters = document.querySelector('.img-filters');

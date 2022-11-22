@@ -1,10 +1,10 @@
-import {isEscapeKey} from './bigPhoto.js';
-import './scalePhoto.js';
-import {resetScale} from './scalePhoto.js';
-import {resetEffects} from './photoEffects.js';
+import {isEscapeKey} from './big-photo.js';
+import './scale-photo.js';
+import {resetScale} from './scale-photo.js';
+import {resetEffects} from './photo-effects.js';
 import {sendServerData} from './servers-api.js';
-import {pristine} from './pristineValidate.js';
-import {photoUploader} from './imageUploader.js';
+import {pristine} from './pristine-validate.js';
+import {photoUploader} from './image-uploader.js';
 
 const uploadFile = document.querySelector('#upload-file');
 const mainBody = document.querySelector('body');

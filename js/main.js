@@ -1,8 +1,8 @@
-import {renderPhotos} from './printElement.js';
+import {renderPhotos} from './print-element.js';
 import './form-validation.js';
-import './photoEffects.js';
+import './photo-effects.js';
 import {getServerData} from './servers-api.js';
-import {renderFilters} from './postFilter.js';
+import {renderFilters} from './post-filter.js';
 
 
 getServerData((posts) => {

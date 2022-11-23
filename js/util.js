@@ -1,10 +1,10 @@
-import {avatarNumber} from './data.js';
-import {randomLikeRange} from './data.js';
+import {avatarNumbers} from './data.js';
+import {randomLikeRanges} from './data.js';
 import {amountRandomComents} from './data.js';
-import {randomIPosition} from './data.js';
-import {DESCRIPTION} from './data.js';
-import {NAME} from './data.js';
-import {MESSAGE} from './data.js';
+import {randomIPositions} from './data.js';
+import {DESCRIPTIONS} from './data.js';
+import {NAMES} from './data.js';
+import {MESSAGES} from './data.js';
 
 const ALERT_SHOW_TIME = 5000;
 
@@ -40,30 +40,33 @@ function debounce (callback, timeoutDelay = 500) {
 //Шаблон формы комментария
 const createComment = (i) => ({
   id: i ,
-  avatar: `img/avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
-  message:getRandomElement(MESSAGE),
-  name: getRandomElement(NAME),
+  avatar: `img/avatar-${ getRandomNumber(avatarNumbers.min, avatarNumbers.max)}.svg`,
+  message:getRandomElement(MESSAGES),
+  name: getRandomElement(NAMES),
 });
 
 // Генератор случайного колличества комментариев
 const generateRandomArrayComments = () => {
   const arrayComments = [];
-  for (let i = getRandomNumber(randomIPosition.min, randomIPosition.max); i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
+  for (let i = getRandomNumber(randomIPositions.min, randomIPositions.max); i <= getRandomNumber(amountRandomComents.min, amountRandomComents.max); i++) {
     arrayComments.push(createComment(i));
   }
   return arrayComments;
 };
 
+//функция использования клавиши Escape
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 // Шаблон формы профиля
 const createProfile = (i) => ({
   id: i ,
   url: `photos/${ i }.jpg`,
-  description: getRandomElement(DESCRIPTION),
-  likes: getRandomNumber (randomLikeRange.min, randomLikeRange.max),
+  description: getRandomElement(DESCRIPTIONS),
+  likes: getRandomNumber (randomLikeRanges.min, randomLikeRanges.max),
   comments: generateRandomArrayComments(),
-  avatar: `avatar-${ getRandomNumber(avatarNumber.min, avatarNumber.max)}.svg`,
-  message:getRandomElement(MESSAGE),
-  name: getRandomElement(NAME),
+  avatar: `avatar-${ getRandomNumber(avatarNumbers.min, avatarNumbers.max)}.svg`,
+  message:getRandomElement(MESSAGES),
+  name: getRandomElement(NAMES),
 
 });
 
@@ -118,5 +121,6 @@ export {
   showAlert,
   getRandomUniqueElements,
   debounce,
+  isEscapeKey,
 };
 

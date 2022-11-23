@@ -7,7 +7,7 @@ const hashtagField = form.querySelector('.text__hashtags');
 const MAX_HASHTAG_COUNTS = 5;
 //требования к хэштэгу: начинается с # доступные буквы а-я,a-z(нижнего и верхнего регистра), цифры 0-9, длинна хэштэга 1-19
 const VALID_HASHTAG_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-const regExpValidTag = new RegExp(VALID_HASHTAG_SIMBOLS);
+const REGEXPVALIDTAG = new RegExp(VALID_HASHTAG_SIMBOLS);
 const MAX_LENGTH_DESCRIPTION = 140;
 
 // проверка длинны комментария к фото
@@ -21,7 +21,7 @@ const checkDublicateHashtags = (value) => {
 };
 
 // проверка валидности хэштэга (длинна, формат, разделение пробелами)
-const checkOneHashtag = (tag) => regExpValidTag.test(tag);
+const checkOneHashtag = (tag) => REGEXPVALIDTAG.test(tag);
 const checkValidHashtags = (tags) =>{
   if (tags === '') {
     return true;

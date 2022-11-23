@@ -1,10 +1,3 @@
-const imgUploadSection = document.querySelector('.img-upload__overlay');
-const form = document.querySelector('.img-upload__form');
-const slider = imgUploadSection.querySelector('.effect-level__slider');
-const photoPreview = form.querySelector('.img-upload__preview > img');
-const effectLevel = form.querySelector('.effect-level__value');
-const blockSliderEffect = form.querySelector('.img-upload__effect-level');
-
 // параметры эффектов
 const EFFECTS = [
   {
@@ -60,6 +53,15 @@ const EFFECTS = [
 const DEFAULT_EFFECT = EFFECTS[0];
 // выбранный эффект
 let chosenEffect = DEFAULT_EFFECT;
+
+const imgUploadSection = document.querySelector('.img-upload__overlay');
+const form = document.querySelector('.img-upload__form');
+const slider = imgUploadSection.querySelector('.effect-level__slider');
+const photoPreview = form.querySelector('.img-upload__preview > img');
+const effectLevel = form.querySelector('.effect-level__value');
+const blockSliderEffect = form.querySelector('.img-upload__effect-level');
+
+
 //проверка на начальное состоние изображения для отключение слайдера
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 

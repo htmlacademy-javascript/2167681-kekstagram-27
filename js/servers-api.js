@@ -1,8 +1,11 @@
 import {showAlert} from './util.js';
 
+const FOR_GET_DATA_URL = 'https://27.javascript.pages.academy/kekstagram/data';
+const FOR_SEND_DATA_URL = 'https://27.javascript.pages.academy/kekstagram';
+
 //получение данных от сервера
 const getServerData = (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/kekstagram/data')
+  fetch(FOR_GET_DATA_URL)
     .then((response) => response.json())
     .then((profilesData) => {
       onSuccess(profilesData);
@@ -14,7 +17,7 @@ const getServerData = (onSuccess) => {
 
 // отправка данных серверу
 const sendServerData = (onSuccess, onFail, body) => {
-  fetch('https://27.javascript.pages.academy/kekstagram', {
+  fetch(FOR_SEND_DATA_URL, {
     method: 'POST',
     body,
   }).then((response) => {

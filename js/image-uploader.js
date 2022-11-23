@@ -1,12 +1,13 @@
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 //загрузка фото
 const fileUploader = document.querySelector('input[type=file]');
 const imagePreview = document.querySelector('.img-upload__preview');
 const uploadPreview = imagePreview.querySelector('img');
 const thubnailsEffects = document.querySelectorAll('.effects__preview');
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
-const photoUploader = () => {
+const photoUpload = () => {
   const file = fileUploader.files[0];
   const fileName = file.name.toLowerCase();
 
@@ -25,5 +26,5 @@ const photoUploader = () => {
 };
 
 export {
-  photoUploader,
+  photoUpload,
 };

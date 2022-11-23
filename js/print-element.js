@@ -1,4 +1,4 @@
-import {showBigPicture, renderCommentList} from './big-photo.js';
+import {showBigPicture, onRenderCommentList} from './big-photo.js';
 
 //массив профилей(25шт)
 const profilesList = document.querySelector('.pictures');
@@ -13,7 +13,7 @@ const renderPhoto = (picture) => {
   photoBlock.addEventListener('click', (evt) => {
     evt.preventDefault();
     showBigPicture(picture);
-    renderCommentList();
+    onRenderCommentList();
   });
   return photoBlock;
 };

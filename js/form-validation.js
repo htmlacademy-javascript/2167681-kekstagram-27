@@ -1,13 +1,13 @@
-import {isEscapeKey} from './big-photo.js';
+import {isEscapeKey} from './util.js';
 import './scale-photo.js';
 import {resetScale} from './scale-photo.js';
 import {resetEffects} from './photo-effects.js';
 import {sendServerData} from './servers-api.js';
 import {pristine} from './pristine-validate.js';
-import {photoUploader} from './image-uploader.js';
+import {photoUpload} from './image-uploader.js';
 
 const uploadFile = document.querySelector('#upload-file');
-const mainBody = document.querySelector('body');
+const mainBody = document.body;
 const editorImage = document.querySelector('.img-upload__overlay');
 const closedEditorImage = document.querySelector('#upload-cancel');
 const form = document.querySelector('.img-upload__form');
@@ -33,38 +33,40 @@ const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
 const messageStatusSubmit = (popappClass) => {
   switch (popappClass) {
     case onErrorMessage:
-      closerEditorImageTwo();
+      editorImage.classList.add('hidden');
       document.body.append(onErrorMessage);
-      onErrorMessage.addEventListener('click', onAnotherClosedError);
-      mainBody.addEventListener('keydown', onAnotherClosedError);
-      buttonErrorMessage.addEventListener('click', onAnotherClosedError);
+      onErrorMessage.addEventListener('click', onAnotherCloseError);
+      mainBody.addEventListener('keydown', onAnotherCloseError);
+      buttonErrorMessage.addEventListener('click', onAnotherCloseError);
       break;
     case onSuccessMessage:
-      closerEditorImage();
+      onCloseEditorImage();
       document.body.append(onSuccessMessage);
-      onSuccessMessage.addEventListener('click', onAnotherClosedSuccess);
-      mainBody.addEventListener('keydown', onAnotherClosedSuccess);
-      buttonSuccessMessage.addEventListener('click', onAnotherClosedSuccess);
+      onSuccessMessage.addEventListener('click', onAnotherCloseSuccess);
+      mainBody.addEventListener('keydown', onAnotherCloseSuccess);
+      buttonSuccessMessage.addEventListener('click', onAnotherCloseSuccess);
       break;
   }
 };
 
 
 // удаление попаппа с ошибкой
-function onAnotherClosedError (evt) {
+function onAnotherCloseError (evt) {
   if (isEscapeKey(evt) || evt.target === onErrorMessage || evt.target === buttonErrorMessage ) {
-    onErrorMessage.removeEventListener('click', onAnotherClosedError);
-    mainBody.removeEventListener('keydown', onAnotherClosedError);
-    buttonErrorMessage.removeEventListener('click', onAnotherClosedError);
+    hashtagField.focus();
+    editorImage.classList.remove('hidden');
+    onErrorMessage.removeEventListener('click', onAnotherCloseError);
+    mainBody.removeEventListener('keydown', onAnotherCloseError);
+    buttonErrorMessage.removeEventListener('click', onAnotherCloseError);
     document.body.removeChild(onErrorMessage);
   }
 }
 // удаление попаппа "все ок"
-function onAnotherClosedSuccess (evt) {
+function onAnotherCloseSuccess (evt) {
   if (isEscapeKey(evt) || evt.target === onSuccessMessage || evt.target === buttonSuccessMessage ) {
-    onSuccessMessage.removeEventListener('click', onAnotherClosedSuccess);
-    mainBody.removeEventListener('keydown', onAnotherClosedSuccess);
-    buttonSuccessMessage.removeEventListener('click', onAnotherClosedSuccess);
+    onSuccessMessage.removeEventListener('click', onAnotherCloseSuccess);
+    mainBody.removeEventListener('keydown', onAnotherCloseSuccess);
+    buttonSuccessMessage.removeEventListener('click', onAnotherCloseSuccess);
     document.body.removeChild(onSuccessMessage);
   }
 }
@@ -84,46 +86,46 @@ commentField.addEventListener('keydown', (evt) => {
 });
 
 //закрытие формы редактирования на клавишу Escape
-const closedOnEscKeyDown = (evt) => {
+const onCloseEscKeyDown = (evt) => {
   if(isEscapeKey(evt)) {
-    closerEditorImage();
+    onCloseEditorImage();
     evt.preventDefault();
   }
 };
 
 //закрытие формы редактирования изображения
-function closerEditorImageTwo () {
+/* function closerEditorImageTwo () {
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
   closedEditorImage.removeEventListener('click', closerEditorImage);
   form.removeEventListener('keydown', closedOnEscKeyDown);
-}
+} */
 
 //закрытие формы редактирования изображения
-function closerEditorImage () {
+function onCloseEditorImage () {
   form.reset();
   pristine.reset();
   resetEffects();
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
-  closedEditorImage.removeEventListener('click', closerEditorImage);
-  form.removeEventListener('keydown', closedOnEscKeyDown);
+  closedEditorImage.removeEventListener('click', onCloseEditorImage);
+  form.removeEventListener('keydown', onCloseEscKeyDown);
 }
 
 //открытие формы редактирования изображения+
-function openEditorImage () {
+function onOpenEditorImage () {
   resetScale();
   editorImage.classList.remove('hidden');
   mainBody.classList.add('modal-open');
-  closedEditorImage.addEventListener('click', closerEditorImage);
-  form.addEventListener('keydown', closedOnEscKeyDown);
+  closedEditorImage.addEventListener('click', onCloseEditorImage);
+  form.addEventListener('keydown', onCloseEscKeyDown);
 }
 
 //обработчик событий
 uploadFile.addEventListener('change', (evt) => {
   evt.preventDefault();
-  openEditorImage();
-  photoUploader();
+  onOpenEditorImage();
+  photoUpload();
 });
 
 // блокировка кнопки отправки формы
@@ -161,8 +163,8 @@ const sendToServer = (onSuccess) => {
   });
 };
 
-sendToServer(closerEditorImage);
+sendToServer(onCloseEditorImage);
 
 export {
-  openEditorImage,
+  onOpenEditorImage,
 };

@@ -128,4 +128,5 @@ slider.noUiSlider.on('update', onSliderUpdate);
 
 export {
   resetEffects,
+  isDefault,
 };

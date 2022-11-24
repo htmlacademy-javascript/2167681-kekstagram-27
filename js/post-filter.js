@@ -1,13 +1,14 @@
 import {renderPhotos} from './print-element.js';
 import {getRandomUniqueElements, debounce} from './util.js';
 
+// количество постов подгружаемые "рандом фильтром"
+const RANDOM_POST_COUNT = 10;
+
 const postsFilters = document.querySelector('.img-filters');
 const randomPostsFilter = postsFilters.querySelector('#filter-random');
 const descussedPostsFilter = postsFilters.querySelector('#filter-discussed');
 const defaultPostsFilter = postsFilters.querySelector('#filter-default');
 
-// количество постов подгружаемые "рандом фильтром"
-const RANDOM_POST_COUNT = 10;
 
 //смена миниатюр в зависимости от выбранного фильтра
 const removePictures = () => {

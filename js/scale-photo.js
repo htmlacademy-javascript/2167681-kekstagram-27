@@ -1,8 +1,3 @@
-const scaleField = document.querySelector('.img-upload__scale');
-const biggerButton = scaleField.querySelector('.scale__control--bigger');
-const smallerButton = scaleField.querySelector('.scale__control--smaller');
-const photoPreview = document.querySelector('.img-upload__preview img');
-const scaleValue = document.querySelector('.scale__control--value');
 //требования к масштабированию
 const PARAMETRS_SCALE = {
   minSize: 25,
@@ -10,6 +5,12 @@ const PARAMETRS_SCALE = {
   step: 25,
   start: 100,
 };
+
+const scaleField = document.querySelector('.img-upload__scale');
+const biggerButton = scaleField.querySelector('.scale__control--bigger');
+const smallerButton = scaleField.querySelector('.scale__control--smaller');
+const photoPreview = document.querySelector('.img-upload__preview img');
+const scaleValue = document.querySelector('.scale__control--value');
 
 
 //сброс масштабирования
@@ -19,7 +20,7 @@ const resetScale = () => {
 };
 
 //функция кнопки 'плюс'
-const onBiggerButton = () => {
+const tuchBiggerButton = () => {
   let parseIntValue = parseInt(scaleValue.value, 10);
   if( parseIntValue < PARAMETRS_SCALE.maxSize) {
     photoPreview.style.transform = `scale(${parseIntValue += PARAMETRS_SCALE.step}%)`;
@@ -28,7 +29,7 @@ const onBiggerButton = () => {
 };
 
 // функция кнопки 'минус'
-const onSmallerButton = () => {
+const tuchSmallerButton = () => {
   let parseIntValue = parseInt(scaleValue.value, 10);
   if( parseIntValue > PARAMETRS_SCALE.minSize) {
     photoPreview.style.transform = `scale(${parseIntValue -= PARAMETRS_SCALE.step}%)`;
@@ -39,10 +40,10 @@ const onSmallerButton = () => {
 // обработчик событий
 scaleField.addEventListener('click', (evt) => {
   if (evt.target === biggerButton) {
-    onBiggerButton();
+    tuchBiggerButton();
   }
   if (evt.target === smallerButton) {
-    onSmallerButton();
+    tuchSmallerButton();
   }
 });
 

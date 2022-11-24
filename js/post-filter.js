@@ -9,6 +9,12 @@ const randomPostsFilter = postsFilters.querySelector('#filter-random');
 const descussedPostsFilter = postsFilters.querySelector('#filter-discussed');
 const defaultPostsFilter = postsFilters.querySelector('#filter-default');
 
+//сортировка по убыванию
+const compareComments = (postsA, postsB) => {
+  const commentsA = postsA.comments.length;
+  const commentsB = postsB.comments.length;
+  return commentsB - commentsA;
+};
 
 //смена миниатюр в зависимости от выбранного фильтра
 const removePictures = () => {
@@ -39,13 +45,6 @@ const onDescussedPostsFilter = (posts) => {
 
 // фильтр по умолчанию
 const onDefaultPostsFilter = (posts) => posts.slice();
-
-//сортировка по убыванию
-function compareComments (postsA, postsB) {
-  const commentsA = postsA.comments.length;
-  const commentsB = postsB.comments.length;
-  return commentsB - commentsA;
-}
 
 //смена постов из фильтров
 const renderPicturesFilter = (posts) => {

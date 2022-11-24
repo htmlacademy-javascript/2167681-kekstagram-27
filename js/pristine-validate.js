@@ -30,7 +30,7 @@ const checkValidHashtags = (tags) =>{
 };
 
 // максимальное количество хэштэгов
-const hashtagsMaxCount = (tags) => tags.trim().split(' ').filter((tag) => tag !== '').length <= MAX_HASHTAG_COUNTS;
+const countMaxHashtags = (tags) => tags.trim().split(' ').filter((tag) => tag !== '').length <= MAX_HASHTAG_COUNTS;
 
 //подключение формы  к Pristine
 const pristine = new Pristine(form, {
@@ -45,7 +45,7 @@ const pristine = new Pristine(form, {
 // валидатор
 pristine.addValidator(commentField, checkLengthDescriptionPhoto, 'Максимум 140 символов');
 pristine.addValidator(hashtagField, checkDublicateHashtags, 'Хэштэги должны отличаться');
-pristine.addValidator(hashtagField, hashtagsMaxCount, 'Максимум 5 хэштегов');
+pristine.addValidator(hashtagField, countMaxHashtags, 'Максимум 5 хэштегов');
 pristine.addValidator(hashtagField, checkValidHashtags, 'Хэштэги разделяются одним пробелом. Хэштэг должен начинаться с \'#\', кол-во символов не должно превышать 20 и включает в себя только буквы и цифры',);
 
 export {

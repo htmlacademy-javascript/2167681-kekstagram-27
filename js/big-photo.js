@@ -17,17 +17,17 @@ let protoCommentsArr = [];
 //закрытие модалки на esc
 const onEscKeyClose = (evt) => {
   if(isEscapeKey(evt)) {
-    onBigPictureClose();
+    onDetailsPhotoModalClose();
   }
 };
 
 //закрытие модалки
-function onBigPictureClose () {
+function onDetailsPhotoModalClose () {
   bigPicture.classList.add('hidden');
   scrollOff.classList.remove('modal-open');
-  bigPictureCloseButton.removeEventListener('click', onBigPictureClose);
+  bigPictureCloseButton.removeEventListener('click', onDetailsPhotoModalClose);
   document.removeEventListener('keydown', onEscKeyClose);
-  commentLoader.removeEventListener('click', onRenderCommentList);
+  commentLoader.removeEventListener('click', onLoadFiveComments);
   commentList.innerHTML = '';
 }
 
@@ -65,7 +65,7 @@ const renderComments = (comments) => {
 };
 
 //отрисовка комментариев по 5шт
-function onRenderCommentList () {
+function onLoadFiveComments () {
   renderComments(protoCommentsArr.splice(0, AMOUNT_COMENTS_LOAD));
 
 }
@@ -80,9 +80,9 @@ const showBigPicture = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
   bigPicture.classList.remove('hidden');
   commentLoader.classList.remove('hidden');
-  bigPictureCloseButton.addEventListener('click', onBigPictureClose);
+  bigPictureCloseButton.addEventListener('click', onDetailsPhotoModalClose);
   document.addEventListener('keydown', onEscKeyClose);
-  commentLoader.addEventListener('click', onRenderCommentList);
+  commentLoader.addEventListener('click', onLoadFiveComments);
   protoCommentsArr = picture.comments.slice();
   commentList.innerHTML = '';
 };
@@ -90,5 +90,5 @@ const showBigPicture = (picture) => {
 export {
   showBigPicture,
   isEscapeKey,
-  onRenderCommentList,
+  onLoadFiveComments,
 };

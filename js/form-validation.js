@@ -28,38 +28,38 @@ const onSuccessMessage = successMessageTemplate.cloneNode(true);
 const buttonSuccessMessage = onSuccessMessage.querySelector('.success__button');
 
 //события для обработчиков на попаппе "ошибка"
-const onClickCloseError = (evt) => {
+const onPopupErrorClickClose = (evt) => {
   if (evt.target === onErrorMessage) {
     onAnotherCloseError();
   }
 };
 
-const onEscCloseError = (evt) => {
+const onPopupErrorEscClose = (evt) => {
   if (isEscapeKey(evt)) {
     onAnotherCloseError();
   }
 };
 
-const onVoidClickCloseError = (evt) => {
+const onPopupErrorVoidClickClose = (evt) => {
   if (evt.target === buttonErrorMessage) {
     onAnotherCloseError();
   }
 };
 
 //события для обработчиков на попаппе "успешно"
-const onClickCloseSuccess = (evt) => {
+const onPopupSuccessClickClose = (evt) => {
   if (evt.target === onSuccessMessage) {
     onAnotherCloseSuccess();
   }
 };
 
-const onEscCloseSuccess = (evt) => {
+const onPopupSuccessEscClose = (evt) => {
   if (isEscapeKey(evt)) {
     onAnotherCloseSuccess();
   }
 };
 
-const onVoidClickCloseSuccess = (evt) => {
+const onPopupSuccessVoidClickClose = (evt) => {
   if (evt.target === buttonSuccessMessage) {
     onAnotherCloseSuccess();
   }
@@ -71,16 +71,16 @@ const messageStatusSubmit = (popappClass) => {
     case onErrorMessage:
       editorImage.classList.add('hidden');
       document.body.append(onErrorMessage);
-      onErrorMessage.addEventListener('click', onClickCloseError);
-      mainBody.addEventListener('keydown', onEscCloseError);
-      buttonErrorMessage.addEventListener('click', onVoidClickCloseError);
+      onErrorMessage.addEventListener('click', onPopupErrorClickClose);
+      mainBody.addEventListener('keydown', onPopupErrorEscClose);
+      buttonErrorMessage.addEventListener('click', onPopupErrorVoidClickClose);
       break;
     case onSuccessMessage:
-      onCloseEditorImage();
+      onEditorImageClose();
       document.body.append(onSuccessMessage);
-      onSuccessMessage.addEventListener('click', onClickCloseSuccess);
-      mainBody.addEventListener('keydown', onEscCloseSuccess);
-      buttonSuccessMessage.addEventListener('click', onVoidClickCloseSuccess);
+      onSuccessMessage.addEventListener('click', onPopupSuccessClickClose);
+      mainBody.addEventListener('keydown', onPopupSuccessEscClose);
+      buttonSuccessMessage.addEventListener('click', onPopupSuccessVoidClickClose);
       break;
   }
 };
@@ -89,17 +89,17 @@ const messageStatusSubmit = (popappClass) => {
 function onAnotherCloseError () {
   editorImage.classList.remove('hidden');
   scaleControlValue.focus();
-  onErrorMessage.removeEventListener('click', onClickCloseError);
-  mainBody.removeEventListener('keydown', onEscCloseError);
-  buttonErrorMessage.removeEventListener('click', onVoidClickCloseError);
+  onErrorMessage.removeEventListener('click', onPopupErrorClickClose);
+  mainBody.removeEventListener('keydown', onPopupErrorEscClose);
+  buttonErrorMessage.removeEventListener('click', onPopupErrorVoidClickClose);
   document.body.removeChild(onErrorMessage);
 }
 
 // удаление попаппа "все ок"
 function onAnotherCloseSuccess () {
-  onSuccessMessage.removeEventListener('click', onClickCloseSuccess);
-  mainBody.removeEventListener('keydown', onEscCloseSuccess);
-  buttonSuccessMessage.removeEventListener('click', onVoidClickCloseSuccess);
+  onSuccessMessage.removeEventListener('click', onPopupSuccessClickClose);
+  mainBody.removeEventListener('keydown', onPopupSuccessEscClose);
+  buttonSuccessMessage.removeEventListener('click', onPopupSuccessVoidClickClose);
   document.body.removeChild(onSuccessMessage);
 }
 
@@ -120,19 +120,19 @@ commentField.addEventListener('keydown', (evt) => {
 //закрытие формы редактирования на клавишу Escape
 const onCloseEscKeyDown = (evt) => {
   if(isEscapeKey(evt)) {
-    onCloseEditorImage();
+    onEditorImageClose();
     evt.preventDefault();
   }
 };
 
 //закрытие формы редактирования изображения
-function onCloseEditorImage () {
+function onEditorImageClose () {
   form.reset();
   pristine.reset();
   resetEffects();
   editorImage.classList.add('hidden');
   mainBody.classList.remove('modal-open');
-  closedEditorImage.removeEventListener('click', onCloseEditorImage);
+  closedEditorImage.removeEventListener('click', onEditorImageClose);
   form.removeEventListener('keydown', onCloseEscKeyDown);
 }
 
@@ -141,7 +141,7 @@ function onOpenEditorImage () {
   resetScale();
   editorImage.classList.remove('hidden');
   mainBody.classList.add('modal-open');
-  closedEditorImage.addEventListener('click', onCloseEditorImage);
+  closedEditorImage.addEventListener('click', onEditorImageClose);
   form.addEventListener('keydown', onCloseEscKeyDown);
 }
 
@@ -187,7 +187,7 @@ const sendToServer = (onSuccess) => {
   });
 };
 
-sendToServer(onCloseEditorImage);
+sendToServer(onEditorImageClose);
 
 export {
   onOpenEditorImage,

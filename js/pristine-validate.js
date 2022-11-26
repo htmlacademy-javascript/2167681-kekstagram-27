@@ -1,14 +1,12 @@
-
-const form = document.querySelector('.img-upload__form');
-const commentField = form.querySelector('.text__description');
-const hashtagField = form.querySelector('.text__hashtags');
-
 //данные из ТЗ для формы
 const MAX_HASHTAG_COUNTS = 5;
 //требования к хэштэгу: начинается с # доступные буквы а-я,a-z(нижнего и верхнего регистра), цифры 0-9, длинна хэштэга 1-19
 const VALID_HASHTAG_SIMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
-const REGEXPVALIDTAG = new RegExp(VALID_HASHTAG_SIMBOLS);
 const MAX_LENGTH_DESCRIPTION = 140;
+
+const form = document.querySelector('.img-upload__form');
+const commentField = form.querySelector('.text__description');
+const hashtagField = form.querySelector('.text__hashtags');
 
 // проверка длинны комментария к фото
 const checkLengthDescriptionPhoto = (text) => text.length <= MAX_LENGTH_DESCRIPTION;
@@ -21,7 +19,7 @@ const checkDublicateHashtags = (value) => {
 };
 
 // проверка валидности хэштэга (длинна, формат, разделение пробелами)
-const checkOneHashtag = (tag) => REGEXPVALIDTAG.test(tag);
+const checkOneHashtag = (tag) => VALID_HASHTAG_SIMBOLS.test(tag);
 const checkValidHashtags = (tags) =>{
   if (tags === '') {
     return true;
